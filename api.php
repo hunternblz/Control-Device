@@ -12,11 +12,11 @@ $ipAddress = $_POST["ipAddress"];
 $option = $_POST["option"];
 switch ($option) {
 	case "UNBLOCK";
-		exec("iptables -D FORWARD -s ".$ipAddress." -j DROP");
+		exec("iptables -D FORWARD -s ".$ipAddress." -j DROP && /etc/init.d/firewall restart");
 		jsonResponse(true, "Unblocked");
 		break;
 	case "BLOCK";
-		exec("iptables -I FORWARD -s ".$ipAddress." -j DROP");
+		exec("iptables -I FORWARD -s ".$ipAddress." -j DROP && /etc/init.d/firewall restart");
 		jsonResponse(true, "Blocked");
 		break;
 }
